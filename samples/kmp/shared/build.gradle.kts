@@ -23,6 +23,10 @@ kotlin {
     iosX64()
     iosArm64()
 
+    compilerOptions {
+        freeCompilerArgs.add("-Xpartial-linkage-loglevel=ERROR")
+    }
+
     cocoapods {
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
