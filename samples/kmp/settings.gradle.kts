@@ -3,6 +3,24 @@ pluginManagement {
         google()
         gradlePluginPortal()
         mavenCentral()
+
+        val kotlin_repo_url: String? by settings
+        kotlin_repo_url?.let {
+            maven(it)
+        }
+    }
+
+    resolutionStrategy {
+        val kotlin_version: String? by settings
+        println("Using kotlin version: $kotlin_version")
+        kotlin_version?.let {
+            eachPlugin {
+                // Example: Override a specific plugin version
+                if (requested.id.namespace == "org.jetbrains.kotlin") {
+                    useVersion(kotlin_version)
+                }
+            }
+        }
     }
 }
 
@@ -35,6 +53,11 @@ dependencyResolutionManagement {
                 username = properties["gpr.user"] as? String ?: System.getenv("GITHUB_USER")
                 password = properties["gpr.key"] as? String ?: System.getenv("GITHUB_TOKEN")
             }
+        }
+
+        val kotlin_repo_url: String? by settings
+        kotlin_repo_url?.let {
+            maven(it)
         }
     }
 }
