@@ -67,7 +67,7 @@ subprojects {
         }
     }
 
-    // !! infrastructure for builds as a Kotlin user project
+// !! infrastructure for builds as a Kotlin user project
 // ("unconditionally disable the -Werror compiler CLI option")
     afterEvaluate {
         tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>().configureEach kotlinCompilationTask@ {
@@ -78,20 +78,6 @@ subprojects {
                 )
                 logger.info("<KUP> ${this@kotlinCompilationTask.path} : disabled -Werror")
             }
-        }
-    }
-
-// !! infrastructure for builds as a Kotlin user project
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>().configureEach kotlinCompilationTask@ {
-        // ("pass the -Wextra CLI option to the Kotlin compiler when the -Werror compiler CLI option is disabled")
-        // ("pass the -Xuse-fir-experimental-checkers CLI option to the Kotlin compiler when the -Werror compiler CLI option is disabled")
-        compilerOptions {
-            // opt into additional warning-reporting compilation checks
-            freeCompilerArgs.add("-Wextra")
-            logger.info("<KUP> ${this@kotlinCompilationTask.path} : added -Wextra")
-            // opt into additional compilation checks hidden from users
-            freeCompilerArgs.add("-Xuse-fir-experimental-checkers")
-            logger.info("<KUP> ${this@kotlinCompilationTask.path} : added -Xuse-fir-experimental-checkers")
         }
     }
 }
