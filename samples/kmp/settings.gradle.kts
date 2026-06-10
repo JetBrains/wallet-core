@@ -5,8 +5,18 @@ pluginManagement {
         mavenCentral()
 
         val kotlin_repo_url: String? by settings
-        kotlin_repo_url?.let {
-            maven(it)
+        val kotlin_version: String? by settings
+        val kotlinRepoUrl = kotlin_repo_url
+        val kotlinVersion = kotlin_version
+        if (!kotlinRepoUrl.isNullOrEmpty() && !kotlinVersion.isNullOrEmpty()) {
+            exclusiveContent {
+                forRepository {
+                    maven(kotlinRepoUrl)
+                }
+                filter {
+                    includeVersionByRegex("""org\.jetbrains\.kotlin($|\..*)""", ".*", kotlinVersion)
+                }
+            }
         }
     }
 
@@ -56,8 +66,18 @@ dependencyResolutionManagement {
         }
 
         val kotlin_repo_url: String? by settings
-        kotlin_repo_url?.let {
-            maven(it)
+        val kotlin_version: String? by settings
+        val kotlinRepoUrl = kotlin_repo_url
+        val kotlinVersion = kotlin_version
+        if (!kotlinRepoUrl.isNullOrEmpty() && !kotlinVersion.isNullOrEmpty()) {
+            exclusiveContent {
+                forRepository {
+                    maven(kotlinRepoUrl)
+                }
+                filter {
+                    includeVersionByRegex("""org\.jetbrains\.kotlin($|\..*)""", ".*", kotlinVersion)
+                }
+            }
         }
     }
 }
