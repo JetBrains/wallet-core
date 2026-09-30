@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.authors      = { 'Alejandro Isaza' => 'al@isaza.ca' }
   s.module_name  = 'WalletCore'
   
-  s.ios.deployment_target = '12.0'
+  s.ios.deployment_target = '15.6'
   s.osx.deployment_target = '10.12'
   s.swift_version = '5.1'
   s.libraries = 'c++'
